@@ -38,6 +38,14 @@ platforms:
     driver_config:
       platform: centos
       image: quay.io/centos/centos:stream8
+  - name: amazonlinux1
+    driver_config:
+      platform: centos
+      image: amazonlinux:1
+  - name: amazonlinux2
+    driver_config:
+      platform: centos
+      image: amazonlinux:2
 
 suites:
   - name: 2x-chef16

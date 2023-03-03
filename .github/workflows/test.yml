@@ -28,6 +28,7 @@ jobs:
           #- "ubuntu-kinetic"
           - "centos-centos7"
           #- "centos-centos-stream8"
+          - "amazonlinux1"
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
@@ -63,6 +64,8 @@ jobs:
           #- "ubuntu-kinetic"
           - "centos-centos7"
           #- "centos-centos-stream8"
+          - "amazonlinux1"
+          - "amazonlinux2"
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:

@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  kitchen_test:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.6"
+        test-instance:
+          - "2x-chef13-ubuntu-xenial"
+          - "2x-chef13-centos-centos6"
+          - "2x-chef13-centos-centos7"
+          - "3x-chef13-ubuntu-xenial"
+          - "3x-chef13-centos-centos6"
+          - "3x-chef13-centos-centos7"
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Run test kitchen
+        run: |
+          set -ex -o pipefail
+          bundle exec kitchen test ${{ matrix.test-instance }}

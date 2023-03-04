@@ -92,19 +92,22 @@ when "rhel", "amazon"
     when nil?,'1'
       "http://packages.treasuredata.com/redhat/$basearch"
     when '2'
-      # version 2.x or later
-      if platform == "amazon"
-        if node["td_agent"]["yum_amazon_releasever"] != "$releasever"
-          Chef::Log.warn("Treasure Data doesn't guarantee td-agent works on older Amazon Linux releases. td-agent could be used on such environment at your own risk.")
-        end
-        "http://packages.treasuredata.com/#{major}/redhat/#{node["td_agent"]["yum_amazon_releasever"]}/$basearch"
+      # https://docs.fluentd.org/v/0.12/articles/install-by-rpm#step-1-install-from-rpm-repository
+      td_agent_version = node['td_agent']['version'].to_f
+      if td_agent_version >= 2.5
+        "http://packages.treasuredata.com/2.5/redhat/$releasever/$basearch"
       else
-        "http://packages.treasuredata.com/#{major}/redhat/$releasever/$basearch"
+        "http://packages.treasuredata.com/2/redhat/$releasever/$basearch"
       end
     when '3'
       if platform == "amazon"
-      amazon_version = node['kernel']['release'].match(/\.amzn([[:digit:]]+)\./)[1]
-        "https://packages.treasuredata.com/#{major}/amazon/#{amazon_version}/#{node["td_agent"]["yum_amazon_releasever"]}/$basearch"
+        platform_version = node["platform_version"].to_i
+        amazon_version = if platform_version > 2000
+                           1
+                         else
+                           platform_version
+                         end
+        "https://packages.treasuredata.com/#{major}/amazon/#{amazon_version}/$releasever/$basearch"
       else
         "http://packages.treasuredata.com/#{major}/redhat/$releasever/$basearch"
       end

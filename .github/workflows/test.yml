@@ -18,8 +18,8 @@ jobs:
           #- "3.2"
         chef-version:
           - 'chef16'
-          #- 'chef17'
-          #- 'chef18'
+          - 'chef17'
+          - 'chef18'
         test-suites:
           #- "ubuntu-xenial"
           #- "ubuntu-bionic"
@@ -53,8 +53,8 @@ jobs:
           #- "3.2"
         chef-version:
           - 'chef16'
-          #- 'chef17'
-          #- 'chef18'
+          - 'chef17'
+          - 'chef18'
         test-suites:
           #- "ubuntu-xenial"
           #- "ubuntu-xenial"

@@ -40,9 +40,15 @@ node["td_agent"]["plugins"].each do |plugin|
   end
 end
 
+
 service "td-agent" do
+  unless major_version == '4'
+    restart_command "/etc/init.d/td-agent restart || /etc/init.d/td-agent start"
+    start_command "/etc/init.d/td-agent start"
+    stop_command "/etc/init.d/td-agent stop"
+  end
+
   supports :restart => true, :reload => (reload_action == :reload), :status => true
-  restart_command "/etc/init.d/td-agent restart || /etc/init.d/td-agent start"
   action [ :enable, :start ]
 end
 

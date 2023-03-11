@@ -111,6 +111,18 @@ when "rhel", "amazon"
       else
         "http://packages.treasuredata.com/#{major}/redhat/$releasever/$basearch"
       end
+    when '4'
+      if platform == "amazon"
+        platform_version = node["platform_version"].to_i
+        amazon_version = if platform_version > 2000
+                           raise "Unsupported version"
+                         else
+                           platform_version
+                         end
+        "http://packages.treasuredata.com/#{major}/amazon/#{amazon_version}/$basearch"
+      else
+        "http://packages.treasuredata.com/#{major}/redhat/$releasever/$basearch"
+      end
     end
   yum_repository "treasure-data" do
     description "TreasureData"

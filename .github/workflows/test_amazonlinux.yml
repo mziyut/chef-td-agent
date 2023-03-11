@@ -1,10 +1,14 @@
-name: Test
+name: Test - Amazon Linux
 
 on:
   push:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   kitchen_test_td-agentv2:
@@ -21,13 +25,6 @@ jobs:
           #- 'chef17'
           #- 'chef18'
         test-suites:
-          #- "ubuntu-xenial"
-          #- "ubuntu-bionic"
-          #- "ubuntu-focal"
-          #- "ubuntu-jammy"
-          #- "ubuntu-kinetic"
-          - "centos-centos7"
-          #- "centos-centos-stream8"
           - "amazonlinux1"
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -56,14 +53,6 @@ jobs:
           #- 'chef17'
           #- 'chef18'
         test-suites:
-          #- "ubuntu-xenial"
-          #- "ubuntu-xenial"
-          #- "ubuntu-bionic"
-          #- "ubuntu-focal"
-          #- "ubuntu-jammy"
-          #- "ubuntu-kinetic"
-          - "centos-centos7"
-          #- "centos-centos-stream8"
           - "amazonlinux1"
           - "amazonlinux2"
     runs-on: ubuntu-latest

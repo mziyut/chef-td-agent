@@ -1,0 +1,77 @@
+name: Test - Ubuntu
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kitchen_test_td-agentv2:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.7"
+          #- "3.0"
+          #- "3.1"
+          #- "3.2"
+        chef-version:
+          - 'chef16'
+          #- 'chef17'
+          #- 'chef18'
+        test-suites:
+          #- "ubuntu-xenial"
+          #- "ubuntu-bionic"
+          #- "ubuntu-focal"
+          #- "ubuntu-jammy"
+          - "ubuntu-kinetic"
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Run test kitchen
+        run: |
+          set -ex -o pipefail
+          bundle exec kitchen test 2x-${{ matrix.chef-version }}-${{ matrix.test-suites }}
+
+  kitchen_test_td-agentv3:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.7"
+          #- "3.0"
+          #- "3.1"
+          #- "3.2"
+        chef-version:
+          - 'chef16'
+          #- 'chef17'
+          #- 'chef18'
+        test-suites:
+          #- "ubuntu-xenial"
+          #- "ubuntu-xenial"
+          #- "ubuntu-bionic"
+          #- "ubuntu-focal"
+          #- "ubuntu-jammy"
+          - "ubuntu-kinetic"
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Run test kitchen
+        run: |
+          set -ex -o pipefail
+          bundle exec kitchen test 3x-${{ matrix.chef-version }}-${{ matrix.test-suites }}

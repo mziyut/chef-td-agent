@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  kitchen_test_td-agentv2:
+  kitchen_test_td-agent_v2:
     strategy:
       fail-fast: false
       matrix:
@@ -43,7 +43,7 @@ jobs:
           set -ex -o pipefail
           bundle exec kitchen test 2x-${{ matrix.chef-version }}-${{ matrix.test-suites }}
 
-  kitchen_test_td-agentv3:
+  kitchen_test_td-agent_v3:
     strategy:
       fail-fast: false
       matrix:

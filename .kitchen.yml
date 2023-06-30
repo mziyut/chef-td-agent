@@ -96,3 +96,27 @@ suites:
       require_chef_omnibus: 18.1.29
     run_list:
       - recipe[smoke::default]
+  - name: 4x-chef16
+    attributes:
+      td_agent:
+        version: 4.4.2
+    driver_config:
+      require_chef_omnibus: 16.8.14
+    run_list:
+      - recipe[smoke::default]
+  - name: 4x-chef17
+    attributes:
+      td_agent:
+        version: 4.4.2
+    driver_config:
+      require_chef_omnibus: 17.9.26
+    run_list:
+      - recipe[smoke::default]
+  - name: 4x-chef18
+    attributes:
+      td_agent:
+        version: 4.4.2
+    driver_config:
+      require_chef_omnibus: 18.1.29
+    run_list:
+      - recipe[smoke::default]
